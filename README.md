@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Product Portfolio — Shopify PM & Developer
 
-## Getting Started
+A Next.js personal product portfolio powered by **Sanity CMS**. The public site is read-only; content is managed separately (not embedded in the UI).
 
-First, run the development server:
+## Architecture
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+┌─────────────────────┐         ┌──────────────────────┐
+│  Sanity Studio        │  write  │  Sanity Content API    │
+│  (backend / admin)    │ ──────► │  (cloud dataset)       │
+│  npm run cms          │         └──────────┬───────────┘
+│  or sanity.io/manage  │                    │ read
+└─────────────────────┘                    ▼
+                                 ┌──────────────────────┐
+                                 │  Next.js site        │
+                                 │  localhost:3000      │
+                                 │  (no CMS in UI)      │
+                                 └──────────────────────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quick start (public site)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Manage content (backend only)
 
-To learn more about Next.js, take a look at the following resources:
+Your portfolio site does **not** include a `/studio` route. Edit content using one of these:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Option A — Local admin (recommended for dev)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Set `.env.local` (copy from `.env.local.example`) with your Sanity **Project ID**
+2. Run the standalone studio:
 
-## Deploy on Vercel
+```bash
+npm run cms
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Opens at [http://localhost:3333](http://localhost:3333) (Sanity default port).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. In [sanity.io/manage](https://www.sanity.io/manage) → **API → CORS**, add:
+   - `http://localhost:3333` (local studio)
+   - `http://localhost:3000` (optional, for live preview later)
+
+### Option B — Hosted admin (production)
+
+Deploy a private studio URL (not on your portfolio domain):
+
+```bash
+npm run cms:deploy
+```
+
+You get a URL like `https://your-project.sanity.studio` — bookmark it for editing.
+
+### Option C — sanity.io/manage
+
+Create/edit datasets and API keys at [sanity.io/manage](https://www.sanity.io/manage). For day-to-day content editing, use Option A or B.
+
+## Connect the site to your dataset
+
+1. Create a project at [sanity.io/manage](https://www.sanity.io/manage)
+2. Add to `.env.local` (both blocks — studio needs `SANITY_STUDIO_*`):
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_real_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+
+SANITY_STUDIO_PROJECT_ID=your_real_project_id
+SANITY_STUDIO_DATASET=production
+```
+
+3. Restart `npm run dev` — the site fetches from Sanity instead of sample data
+4. Create **Product**, **Case Study**, and **PRD** documents in the studio (`npm run cms`)
+5. Mark products as **Featured** to show on the homepage
+
+## Content types
+
+| Type | Purpose |
+|------|---------|
+| **Product** | Full product page: thinking, roadmap, competitive analysis, article link |
+| **Case Study** | Problem / solution / impact + metrics |
+| **PRD** | Summary + full body, linked to a product |
+
+Studio config: `sanity.config.ts` (root). Schemas: `sanity/schemas/`. Sample fallback: `src/data/sample-data.ts`.
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Public Next.js site (port 3000) |
+| `npm run build` | Production build |
+| `npm run cms` | Standalone Sanity Studio (port 3333) — **content admin** |
+| `npm run cms:deploy` | Deploy hosted studio to `*.sanity.studio` |
+
+## Deploy
+
+- **Site (Vercel, etc.)**: deploy the Next.js app only; set `NEXT_PUBLIC_SANITY_*` env vars. No studio on this domain.
+- **CMS**: use `npm run cms:deploy` or run `npm run cms` locally when editing.
+
+## Customize
+
+- **About / Contact**: `src/app/about/page.tsx`, `src/app/contact/page.tsx`
