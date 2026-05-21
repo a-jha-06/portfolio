@@ -11,11 +11,24 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Product Portfolio | Shopify PM & Developer",
-    template: "%s | Product Portfolio",
+    default: "Amisha Jha | Shopify Developer & Product Portfolio",
+    template: "%s | Amisha Jha",
   },
   description:
     "Shopify developer building conversion-focused commerce products. Product showcase, case studies, PRDs, and roadmaps.",
+  icons: {
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "Amisha Jha | Shopify Developer & Product Portfolio",
+    description:
+      "Shopify developer building conversion-focused commerce products.",
+    images: [{ url: "/logo.png", width: 512, height: 512, alt: "Amisha Jha" }],
+  },
 };
 
 export default function RootLayout({

@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Logo } from "./Logo";
 
 const links = [
   { href: "/", label: "Home" },
   { href: "/products", label: "Products" },
   { href: "/case-studies", label: "Case Studies" },
+  { href: "/services", label: "Services" },
   { href: "/prds", label: "PRDs" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -18,14 +20,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0b0f0d]/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="group flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/15 text-sm font-bold text-emerald-400 ring-1 ring-emerald-500/30">
-            PM
-          </span>
-          <span className="text-sm font-medium text-zinc-200 group-hover:text-white">
-            Product Portfolio
-          </span>
-        </Link>
+        <Logo href="/" size="md" />
 
         <ul className="hidden items-center gap-1 md:flex">
           {links.map(({ href, label }) => {

@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { Logo } from "@/components/layout/Logo";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-white/5">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(16,185,129,0.15),transparent)]" />
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+        <Logo href="/" size="lg" showName={false} className="mb-8" />
         <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
           Product showcase · SaaS hub · PRD library
         </p>
