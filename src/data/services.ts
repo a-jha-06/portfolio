@@ -39,6 +39,17 @@ export const techStackCategories: ServiceCategory[] = [
     ],
   },
   {
+    title: "CMS & platforms",
+    description: "Content-driven sites, blogs, and commerce beyond Shopify.",
+    items: [
+      {
+        name: "WordPress",
+        icon: "📝",
+        description: "Custom themes, plugins, WooCommerce, Gutenberg blocks, and site migrations",
+      },
+    ],
+  },
+  {
     title: "Integrations & tooling",
     description: "Payments, ops, POS, and automation that connect the full stack.",
     items: [
@@ -84,6 +95,10 @@ export const commerceServices = [
   {
     title: "POS & unified commerce",
     detail: "Shopify POS integrations with Ginesys for online + retail inventory alignment.",
+  },
+  {
+    title: "WordPress development",
+    detail: "Custom themes, plugin integration, WooCommerce setups, and performance tuning for content-heavy sites.",
   },
   {
     title: "Technical consulting",
