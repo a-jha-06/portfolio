@@ -21,7 +21,6 @@ export const techStackCategories: ServiceCategory[] = [
     items: [
       { name: "React.js", icon: "⚛️", description: "Component-driven UIs, hooks, state management" },
       { name: "Next.js", icon: "⚛️", description: "SSR, App Router, performance-first apps" },
-      { name: "React Native", icon: "📱", description: "Cross-platform mobile experiences" },
       { name: "JavaScript", icon: "💻", description: "ES6+, async flows, DOM & API integration" },
       { name: "HTML", icon: "🌐", description: "Semantic markup, accessibility basics" },
       { name: "CSS", icon: "🎨", description: "Responsive layouts, animations, design systems" },
